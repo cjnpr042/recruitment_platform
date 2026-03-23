@@ -100,3 +100,16 @@ export const logoutService = async (token) => {
     await RefreshTokenModel.deleteOne({ token });
   }
 };
+
+// me
+export const getmeService = async (userId) => {
+  const user = await User.findById(userId).select("-password");
+  if (!user) {
+    throw {
+      message: "User not found",
+      status: 404,
+    };
+  }
+
+  return user;
+};

@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import authRouter from "./routes/authRoutes.js";
+import candidateRouter from "./routes/candidateRoutes.js";
+import recruiterRouter from "./routes/recruiterRoutes.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -13,8 +15,12 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
-
+// public
 app.use("/api/v1/auth", authRouter);
+
+//private
+app.use("/api/v1/candidate", candidateRouter);
+app.use("/api/v1/recruiter", recruiterRouter);
 
 //heal check
 app.get("/api/health", (req, res) => {

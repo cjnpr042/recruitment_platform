@@ -9,16 +9,31 @@ const recruiterProfileSchema = new mongoose.Schema(
       unique: true,
     },
 
-    companyName: { type: String, required: true },
+    companyName: {
+      type: String,
+      default: "Chưa cập nhật tên công ty",
+      trim: true,
+    },
 
-    addresses: [{ type: String }],
-    websites: [{ type: String }],
+    addresses: {
+      type: [String],
+      default: [],
+    },
 
-    description: { type: String },
+    websites: {
+      type: [String],
+      default: [],
+    },
+
+    description: {
+      type: String,
+      default: "",
+    },
   },
   { timestamps: true },
 );
-const recuiterProfile = mongoose.model(
+const recruiterProfile = mongoose.model(
   "RecruiterProfile",
   recruiterProfileSchema,
 );
+export default recruiterProfile;

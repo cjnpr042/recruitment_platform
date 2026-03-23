@@ -3,6 +3,7 @@ import {
   loginService,
   refreshTokenService,
   logoutService,
+  getmeService,
 } from "../services/authService.js";
 
 //register
@@ -73,6 +74,19 @@ export const logout = async (req, res, next) => {
     res.clearCookie("accessToken");
     res.clearCookie("refreshToken");
     res.json({ message: "Logged out" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// get me
+
+export const getMe = async (req, res, next) => {
+  try {
+    const user = await getmeService(req.user.userId);
+    res.json({
+      user,
+    });
   } catch (error) {
     next(error);
   }

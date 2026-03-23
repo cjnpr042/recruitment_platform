@@ -9,19 +9,34 @@ const candidateProfileSchema = new mongoose.Schema(
       unique: true,
     },
 
-    fullName: { type: String, required: true },
-    professionalPosition: { type: String },
+    fullName: { type: String, default: "Người dùng mới", trim: true },
+    professionalPosition: { type: String, default: "" },
 
-    gender: { type: String, enum: ["Male", "Female", "Other"] },
-    birthday: { type: Date },
+    gender: {
+      type: String,
+      enum: ["Male", "Female", "Other", "Not Specified"],
+      default: "Not Specified",
+    },
+    birthday: { type: Date, default: null },
 
-    profileOverview: { type: String },
+    profileOverview: { type: String, default: "" },
 
-    education: [{ type: String }],
-    skills: [{ type: String }],
-    workHistory: [{ type: String }],
+    education: {
+      type: [String],
+      default: [],
+    },
 
-    phone: { type: String },
+    skills: {
+      type: [String],
+      default: [],
+    },
+
+    workHistory: {
+      type: [String],
+      default: [],
+    },
+
+    phone: { type: String, default: "" },
   },
   { timestamps: true },
 );
@@ -30,4 +45,4 @@ const candidateProfile = mongoose.model(
   "CandidateProfile",
   candidateProfileSchema,
 );
-export default CandidateProfile;
+export default candidateProfile;

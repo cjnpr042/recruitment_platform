@@ -84,7 +84,7 @@ export const getJobs = async (req, res, next) => {
 // public single job
 export const getSingleJob = async (req, res, next) => {
   try {
-    const job = await getSingleJobService(req.params.id);
+    const job = await getSingleJobService(req.params.jobId);
 
     if (!job) {
       return res.status(404).json({

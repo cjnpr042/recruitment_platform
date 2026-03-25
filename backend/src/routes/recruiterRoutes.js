@@ -10,8 +10,8 @@ import { authorize } from "../middleware/authorize.js";
 const router = express.Router();
 
 // recruiter only
-router.get("/profile", protect, authorize("recruiter"), getMyProfile);
-router.put("/profile", protect, authorize("recruiter"), upsertProfile);
+router.get("/me", protect, authorize("recruiter"), getMyProfile);
+router.put("/me", protect, authorize("recruiter"), upsertProfile);
 
 // public
 router.get("/:userId", protect, getPublicProfile);

@@ -122,6 +122,9 @@ export const getJobsService = async (query) => {
 
 // get singlejob
 export const getSingleJobService = async (jobId) => {
+  if (!mongoose.Types.ObjectId.isValid(jobId)) {
+    return null;
+  }
   const result = await Job.aggregate([
     {
       $match: {

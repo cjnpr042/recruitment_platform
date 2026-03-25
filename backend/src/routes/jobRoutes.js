@@ -13,19 +13,21 @@ import { authorize } from "../middleware/authorize.js";
 import { isJobOwner } from "../middleware/ownership.js";
 const router = express.Router();
 
-// public
-router.get("", protect, authorize("recruiter"), getJobs);
-router.get("/:id", getSingleJob);
-// 🟡 RECRUITER
+router.get("/me", protect, authorize("recruiter"), getMyJobs);
+router.get("", protect, getJobs);
+router.get("/:jobId", getSingleJob);
 router.post("/", protect, authorize("recruiter"), createJob);
-router.get("/my-jobs", protect, authorize("recruiter"), getMyJobs);
-
-router.put("/:id", protect, authorize("recruiter"), isJobOwner, updateJob);
-
-router.delete("/:id", protect, authorize("recruiter"), isJobOwner, deleteJob);
+router.put("/:jobId", protect, authorize("recruiter"), isJobOwner, updateJob);
+router.delete(
+  "/:jobId",
+  protect,
+  authorize("recruiter"),
+  isJobOwner,
+  deleteJob,
+);
 
 router.patch(
-  "/:id/status",
+  "/:jobId/status",
   protect,
   authorize("recruiter"),
   isJobOwner,

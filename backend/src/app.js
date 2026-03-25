@@ -4,6 +4,7 @@ import authRouter from "./routes/authRoutes.js";
 import candidateRouter from "./routes/candidateRoutes.js";
 import recruiterRouter from "./routes/recruiterRoutes.js";
 import jobRouter from "./routes/jobRoutes.js";
+import applicationRouter from "./routes/applicationRoutes.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -17,14 +18,18 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 // public
-app.use("/api/v1/auth", authRouter);
-// thêm số nhiều sau v1
-//private
-app.use("/api/v1/candidate", candidateRouter);
-app.use("/api/v1/recruiter", recruiterRouter);
+const API_V1 = "/api/v1";
+app.use(`${API_V1}/auth`, authRouter);
+
+//profile
+app.use(`${API_V1}/candidates`, candidateRouter);
+app.use(`${API_V1}/recruiters`, recruiterRouter);
 
 // job
-app.use("/api/v1/job", jobRouter);
+app.use(`${API_V1}/jobs`, jobRouter);
+
+// application
+app.use(`${API_V1}/applications`, applicationRouter);
 
 //heal check
 app.get("/api/health", (req, res) => {
@@ -35,6 +40,7 @@ app.get("/api/health", (req, res) => {
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
 });
+
 app.use((err, req, res, next) => {
   console.error(err);
 

@@ -5,6 +5,7 @@ import candidateRouter from "./routes/candidateRoutes.js";
 import recruiterRouter from "./routes/recruiterRoutes.js";
 import jobRouter from "./routes/jobRoutes.js";
 import applicationRouter from "./routes/applicationRoutes.js";
+import adminRouter from "./routes/adminRoutes.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -30,6 +31,9 @@ app.use(`${API_V1}/jobs`, jobRouter);
 
 // application
 app.use(`${API_V1}/applications`, applicationRouter);
+
+// admin
+app.use("/api/v1/admin", adminRouter);
 
 //heal check
 app.get("/api/health", (req, res) => {

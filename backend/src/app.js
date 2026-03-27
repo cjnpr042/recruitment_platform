@@ -7,7 +7,8 @@ import jobRouter from "./routes/jobRoutes.js";
 import applicationRouter from "./routes/applicationRoutes.js";
 import adminRouter from "./routes/adminRoutes.js";
 import cookieParser from "cookie-parser";
-
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./config/swagger.js";
 const app = express();
 // middleware
 app.use(
@@ -18,6 +19,7 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // public
 const API_V1 = "/api/v1";
 app.use(`${API_V1}/auth`, authRouter);
